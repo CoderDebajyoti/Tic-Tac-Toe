@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <style>
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            background-color: lightgray;
+            font-size: 2em;
+            text-align: center;
+            line-height: 100px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="board" id="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+    </div>
+
+    <script>
+        const board = document.getElementById('board');
+        const cells = document.querySelectorAll('.cell');
+        let currentPlayer = 'X';
+        const winningCombinations = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6]             // Diagonals
+        ];
+
+        cells.forEach(cell => {
+            cell.addEventListener('click', handleClick, { once: true });
+        });
+
+        function handleClick(e) {
+            const cell = e.target;
+            const index = cell.dataset.index;
+            cell.innerText = currentPlayer;
+            if (checkWin(currentPlayer)) {
+                alert(`${currentPlayer} wins!`);
+                resetGame();
+            } else if ([...cells].every(cell => cell.innerText !== '')) {
+                alert('Draw!');
+                resetGame();
+            } else {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            }
+        }
+
+        function checkWin(player) {
+            return winningCombinations.some(combination => {
+                return combination.every(index => {
+                    return cells[index].innerText === player;
+                });
+            });
+        }
+
+        function resetGame() {
+            cells.forEach(cell => cell.innerText = '');
+            currentPlayer = 'X';
+        }
+    </script>
+</body>
+</html>
