@@ -5,6 +5,7 @@
 A basic Tic-Tac-Toe game implemented purely with HTML. This version of the game focuses on simplicity, with all elements and logic handled within the HTML file itself. It is designed for educational purposes and demonstrates how a simple game can be created using just HTML.
 
 ##You can try this using 
+```
 https://codepen.io/CoderDebajyoti/pen/oNrEbmK?editors=1000
 ```
 
